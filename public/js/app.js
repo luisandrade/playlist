@@ -1848,6 +1848,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1863,7 +1870,8 @@ __webpack_require__.r(__webpack_exports__);
       auto_start: 0,
       arrayPlaylist: [],
       arrayDetallePlaylist: [],
-      arrayVideo: []
+      arrayVideo: [],
+      totalLength: 0
     };
   },
   methods: {
@@ -1883,12 +1891,27 @@ __webpack_require__.r(__webpack_exports__);
       esto.arrayDetallePlaylist.push({
         id_video: data['id'],
         nombre_video: data['nombre_video'],
-        length: 1
+        lenght: data['lenght']
       });
     },
-    mounted: function mounted() {
-      this.listarVideo();
+    eliminarDetalleVideo: function eliminarDetalleVideo(index) {
+      var esto = this;
+      esto.arrayDetallePlaylist.splice(index, 1);
     }
+  },
+  computed: {
+    calcularTotalLengthVideo: function calcularTotalLengthVideo() {
+      var resultado = 0;
+
+      for (var i = 0; i < this.arrayDetallePlaylist.length; i++) {
+        resultado = resultado + this.arrayDetallePlaylist[i].lenght;
+      }
+
+      return resultado;
+    }
+  },
+  mounted: function mounted() {
+    this.listarVideo();
   }
 });
 
@@ -37518,32 +37541,69 @@ var render = function() {
                 _c(
                   "tbody",
                   { staticClass: "text-dark" },
-                  _vm._l(_vm.arrayDetallePlaylist, function(videoDetalle) {
-                    return _c(
-                      "tr",
-                      { key: videoDetalle.id, staticClass: "table-primary" },
-                      [
-                        _c("td", {
-                          domProps: {
-                            textContent: _vm._s(videoDetalle.id_video)
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: {
-                            textContent: _vm._s(videoDetalle.nombre_video)
-                          }
-                        }),
-                        _vm._v(" "),
-                        _c("td", {
-                          domProps: { textContent: _vm._s(videoDetalle.length) }
-                        }),
-                        _vm._v(" "),
-                        _c("td")
-                      ]
-                    )
-                  }),
-                  0
+                  [
+                    _vm._l(_vm.arrayDetallePlaylist, function(
+                      videoDetalle,
+                      index
+                    ) {
+                      return _c(
+                        "tr",
+                        { key: videoDetalle.id, staticClass: "table-primary" },
+                        [
+                          _c("td", {
+                            domProps: {
+                              textContent: _vm._s(videoDetalle.id_video)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: {
+                              textContent: _vm._s(videoDetalle.nombre_video)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td", {
+                            domProps: {
+                              textContent: _vm._s(videoDetalle.lenght)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("td"),
+                          _vm._v(" "),
+                          _c("td", [
+                            _c(
+                              "button",
+                              {
+                                staticClass:
+                                  "btn btn-primary waves-effect waves-light mr-1",
+                                attrs: { type: "submit" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.eliminarDetalleVideo(index)
+                                  }
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                                                                    X\n                                                                                "
+                                )
+                              ]
+                            )
+                          ])
+                        ]
+                      )
+                    }),
+                    _vm._v(" "),
+                    _c("h3", [
+                      _vm._v(
+                        "$ " +
+                          _vm._s(
+                            (_vm.totalLength = _vm.calcularTotalLengthVideo)
+                          )
+                      )
+                    ])
+                  ],
+                  2
                 )
               ]),
               _vm._v(" "),
@@ -37764,7 +37824,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Nombre de Vídeo")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Duración")])
+        _c("th", [_vm._v("Duración")]),
+        _vm._v(" "),
+        _c("th", [_vm._v(" Eliminar")])
       ])
     ])
   },

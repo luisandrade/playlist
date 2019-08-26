@@ -113,20 +113,27 @@
                                                                                 <th>ID</th>
                                                                                 <th>Nombre de Vídeo</th>
                                                                                 <th>Duración</th>
+                                                                                <th> Eliminar</th>
+                                                                                
                                                                                 
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody class="text-dark">
-                                                                            <tr v-for="videoDetalle in arrayDetallePlaylist" :key="videoDetalle.id" class="table-primary">
+                                                                            <tr v-for="(videoDetalle,index) in arrayDetallePlaylist" :key="videoDetalle.id" class="table-primary">
                                                                                 <td v-text="videoDetalle.id_video"></td>
                                                                                 <td v-text="videoDetalle.nombre_video"></td>
-                                                                                <td v-text="videoDetalle.length"></td>
+                                                                                <td v-text="videoDetalle.lenght"></td>
+                                                                                <td></td>
                                                                                 <td>
-
+                                                                                     <button type="submit" class="btn btn-primary waves-effect waves-light mr-1" @click="eliminarDetalleVideo(index)" >
+                                                                                        X
+                                                                                    </button>
                                                                                 </td>
+                                                                                
                                                                             </tr>
-                                                                           
-    
+                                                                            <h3>$ {{totalLength = calcularTotalLengthVideo}}</h3>
+                                                                          
+
                                                                         </tbody>
                                                                     </table>
                         
@@ -165,7 +172,8 @@
                 auto_start : 0,
                 arrayPlaylist : [],
                 arrayDetallePlaylist : [],
-                arrayVideo : []
+                arrayVideo : [],
+                totalLength: 0
             }
         },
         methods: {
@@ -188,13 +196,32 @@
                 esto.arrayDetallePlaylist.push({
                     id_video : data['id'],
                     nombre_video : data['nombre_video'],
-                    length : 1
+                    lenght : data['lenght']
            
-            });
+                });
+            },
+            eliminarDetalleVideo(index){
+                let esto = this;
+                esto.arrayDetallePlaylist.splice(index,1);
+
+            }
+        },
+            computed:{
+             calcularTotalLengthVideo: function(){
+                 var resultado = 0;
+                 for(var i = 0; i<this.arrayDetallePlaylist.length; i++){
+                     resultado = resultado + (this.arrayDetallePlaylist[i].lenght)
+                 }
+
+                  return resultado;
+             }
+           
+
         },
         mounted(){
             this.listarVideo();
-        }
+        },
+    
     }
-}
+
 </script>
