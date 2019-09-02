@@ -22,6 +22,8 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('playlist-component', require('./components/PlaylistComponent.vue'));
+Vue.component('prueba-component', require('./components/PruebaComponentEdgar.vue').default);
+Vue.component('prueba-component-ultima', require('./components/PruebaComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

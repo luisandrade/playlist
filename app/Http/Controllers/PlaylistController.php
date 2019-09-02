@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Playlist;
 use App\DetallePlaylist;
+use Illuminate\Support\Facades\DB;
 
 class PlaylistController extends Controller
 {
@@ -21,8 +22,11 @@ class PlaylistController extends Controller
 
             $playlist = new Playlist();
             $playlist->id_usuario = $request->id_usuario;
+            $playlist->id_canal = $request->id_canal;
             $playlist->nombre_playlist = $request->nombre_playlist;
             $playlist->hora_inicio = $request->hora_inicio;
+            $playlist->hora_final = $request->hora_final;
+
             $playlist->fecha_emision = $request->fecha_emision;
             $playlist->loop = $request->loop;
             $playlist->auto_start = $request->auto_start;
@@ -37,8 +41,8 @@ class PlaylistController extends Controller
                 $detalle_video = new DetallePlaylist;
                 $detalle_video->id_playlist = $playlist->id; // el id del playlist insertado arriba en playlist
                 $detalle_video->id_video = $det_video['id_video'];
-                $detalle_video->length_total = $det_video['length_total'];
-                $det_video->save();
+                // $detalle_video->length_total = $det_video['length_total'];
+                $detalle_video->save();
 
             }
 

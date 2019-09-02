@@ -16,25 +16,30 @@
                     <div class="p-3">
                         <h4 class="font-18 m-b-5 text-center">Welcome Back !</h4>
                         <p class="text-muted text-center">Sign in to continue to Veltrix.</p>
-
-                        <form class="form-horizontal m-t-30" action="index">
-                            <div class="form-group">
+                      
+                        <form class="form-horizontal m-t-30 was-validated" method="POST" action="{{ route('login') }}" >
+                        {{ csrf_field() }}
+                            <div class="form-group{{$errors->has('usuario' ? 'is-invalid' : '')}}">
                                 <label for="username">Username</label>
-                                <input type="text" class="form-control" id="username" placeholder="Enter username">
+                                <input type="text" class="form-control" value="{{old('nombre_usuario')}}" name="nombre_usuario" id="nombre_usuario"  placeholder="Enter username">
+                                @if ($errors->has('usuario'))
+                                    <div class="error">{{ $errors->first('usuario') }}</div>
+                                @endif
+                                
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group{{$errors->has('password' ? 'is-invalid' : '')}}">
                                 <label for="userpassword">Password</label>
-                                <input type="password" class="form-control" id="userpassword" placeholder="Enter password">
+                                <input type="password" class="form-control" name="password" id="password" placeholder="Enter password">
+                                @if ($errors->has('password'))
+                                    <div class="error">{{ $errors->first('password') }}</div>
+                                @endif
+
+                                
+                                
                             </div>
 
-                            <div class="form-group row m-t-20">
-                                <div class="col-sm-6">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="customControlInline">
-                                        <label class="custom-control-label" for="customControlInline">Remember me</label>
-                                    </div>
-                                </div>
+                            
                                 <div class="col-sm-6 text-right">
                                     <button class="btn btn-primary w-md waves-effect waves-light" type="submit">Log In</button>
                                 </div>

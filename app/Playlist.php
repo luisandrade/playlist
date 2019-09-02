@@ -17,4 +17,12 @@ class Playlist extends Model
         'auto_start'
 
     ];
+    public function usuario()
+     {
+         return $this->belongsTo('App\User');
+     }
+     public function canal()
+     {
+         return $this->belongTo('App\Canal');
+     }
 }

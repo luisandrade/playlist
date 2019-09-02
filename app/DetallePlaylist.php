@@ -11,7 +11,7 @@ class DetallePlaylist extends Model
     protected $fillable = [ 
                 'id_video',
                 'id_playlist',
-                'lenght_total'
+                // 'lenght_total'
 
     
     ];

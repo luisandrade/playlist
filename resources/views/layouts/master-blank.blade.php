@@ -5,6 +5,7 @@
         <title>Veltrix - Responsive Bootstrap 4 Admin Dashboard</title>
         <meta content="Admin Dashboard" name="description" />
         <meta content="Themesbrand" name="author" />
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="shortcut icon" href="assets/images/favicon.ico">
         @include('layouts.head')
   </head>

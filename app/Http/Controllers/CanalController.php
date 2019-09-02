@@ -33,4 +33,13 @@ class CanalController extends Controller
             
         }
     }
+    public function selectCanales(Request $request){
+        //if (!$request->ajax()) return redirect('/');
+
+        
+        $canales = Canal::select('id','nombre_canal')
+        ->orderBy('nombre_canal', 'asc')->get();
+
+        return ['canales' => $canales];
+    }
 }

@@ -16,34 +16,38 @@ Route::get('/', function () {
     return view('index');
 });
 
+    Route::group(['middleware'=>['guest']],function(){
+        Route::get('/','Auth\LoginController@mostrarLogin');
+        Route::post('/login', 'Auth\LoginController@login')->name('login');
+     });
 
-// Canales
-route::get('/canales','CanalController@index')->name('canales');
-route::post('/canales/registrar','CanalController@store')->name('canales/registrar');
+     Route::group(['middleware'=>['auth']],function(){
 
-// Videos
-route::get('/videos','VideoController@index')->name('videos');
-route::get('/videos/listarVideos','VideoController@listarVideo')->name('listarVideos');
-route::post('/videos/registrar','VideoController@store')->name('videos/registrar');
+            Route::get('/main', function () {
+                return view('pages-blank');
+            })->name('main');
 
-//Plylist
-route::get('/playlist','PlaylistController@index')->name('playlist');
-route::post('/playlist/registrar','PlaylistController@store')->name('playlist/registrar');
-
+    
+         Route::group(['middleware' => ['Administrador']], function () {
+            //Users
+            Route::get('/usuarios/selectUsuarios', 'UsuarioController@selectUsuarios');
+            // Canales
+            route::get('/canales','CanalController@index')->name('canales');
+            route::post('/canales/registrar','CanalController@store')->name('canales/registrar');
+            Route::get('/canales/selectCanales', 'CanalController@selectCanales');
+            // Videos
+            route::get('/videos','VideoController@index')->name('videos');
+            route::get('/videos/listarVideos','VideoController@listarVideo')->name('listarVideos');
+            route::post('/videos/registrar','VideoController@store')->name('videos/registrar');
+            //Playlist
+            route::get('/playlist','PlaylistController@index')->name('playlist');
+            route::post('/playlist/registrar','PlaylistController@store')->name('playlist/registrar');
+        });
+    });
+//Defecto
 Route::get('{any}', 'VeltrixController@index');
 
-Route::group(['prefix' => 'admin'], function(){
-    
 
-    Route::group(['prefix' => 'heroes'], function(){
-        Route::get('/','AdminController@index');
-        Route::get('pages-blank','HeroeController@index')->name('pages-blank');
-        Route::get('create','HeroeController@create')->name('admin.heroes.create');
-        Route::post('store','HeroeController@store')->name('admin.heroes.store');
-        Route::get('edit/{id}','HeroeController@edit')->name('admin.heroes.edit');
-        Route::post('update/{id}','HeroeController@update')->name('admin.heroes.update');
-    });
+Auth::routes();
 
-    Route::get('enemigos','EnemigoController@index')->name('admin.enemigos');
-    Route::get('items','ItemsController@index')->name('admin.items');
-});
+Route::get('/home', 'HomeController@index')->name('home');

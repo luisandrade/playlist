@@ -6,9 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Canal extends Model
 {
-    protected $table="canales";
+   
+    protected $table = 'canales';
+    protected $fillable = [ 'nombre_canal', 'id'];
 
-    protected $fillable = [ 'nombre_canal'];
+    public function canal()
+     {
+         return $this->hasMany('App\Playlist');
+     }
 
 
 }
+

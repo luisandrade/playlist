@@ -11,7 +11,7 @@
 
 @section('content')
 
-       <example-component></example-component>
+       <prueba-component-ultima></prueba-component-ultima>
      
 
 @endsection
