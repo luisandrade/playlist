@@ -281,9 +281,7 @@ export default {
     selectUsuarios() {
       let esto = this;
       var url = "/usuarios/selectUsuarios";
-      axios
-        .get(url)
-        .then(function(response) {
+      axios.get(url).then(function(response) {
           console.log(response);
           let respuesta = response.data;
           esto.arrayUsers = respuesta.usuarios;
